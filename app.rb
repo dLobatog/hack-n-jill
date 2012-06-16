@@ -91,6 +91,8 @@ class MyApp < Sinatra::Application
 
   get "/sign_out" do
     session[:access_token] = nil
+    session[:uid] = nil
+    @current_user = nil
     redirect '/'
   end
 
@@ -138,6 +140,7 @@ class MyApp < Sinatra::Application
   end
   
   get '/settings' do
+    redirect '/' if current_user.nil?
     @graph = Koala::Facebook::API.new(session[:access_token])
     @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
     @user = current_user
@@ -147,10 +150,10 @@ class MyApp < Sinatra::Application
   end
   
   get '/home' do
-    if current_user
-      graph = Koala::Facebook::API.new(session[:access_token])
-    else
+    if current_user.nil?
       redirect '/'
+    else
+      graph = Koala::Facebook::API.new(session[:access_token])
     end  
     city                      = current_user.new_city
     friends = graph.get_connections('me', 'friends', fields: 'id')
