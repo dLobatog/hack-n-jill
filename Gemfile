@@ -6,5 +6,8 @@ gem "json"
 gem "httparty"
 gem "thin"
 gem "foreman"
-gem "mongoid", "~> 3.0.0.rc"
+gem "mongo_mapper"
+gem 'bson_ext'
 gem "rerun"
+gem "haml"
+gem 'activesupport'
