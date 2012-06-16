@@ -24,10 +24,6 @@ class MyApp < Sinatra::Application
     MongoMapper.setup(config, "development")
   end
 
-  unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
-    abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
-  end
-
   before do
     # HTTPS redirect
     if settings.environment == :production && request.scheme != 'https'
@@ -142,7 +138,7 @@ class MyApp < Sinatra::Application
   end
   
   get '/settings' do
-    @graph  = Koala::Facebook::API.new(session[:access_token])
+    @graph = Koala::Facebook::API.new(session[:access_token])
     @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
     @user = current_user
     @friends = @graph.get_connections('me', 'friends').to_json
@@ -151,14 +147,21 @@ class MyApp < Sinatra::Application
   end
   
   get '/home' do
-    @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
+    if current_user
+      graph = Koala::Facebook::API.new(session[:access_token])
+    else
+      redirect '/'
+    end  
+    city                      = current_user.new_city unless params[:city].nil?
+    @list_of_possible_friends = current_user.find_people_in_your_city(city, current_user.uid)
+    @app                      = graph.get_object(ENV["FACEBOOK_APP_ID"])
     haml :home
   end
   
   post '/save' do
-    @friends = params[:friends]
-    @home_city = params[:home_city]
-    @graph = Koala::Facebook::API.new(session[:access_token])
+    @friends      = params[:friends]
+    @home_city    = params[:home_city]
+    @graph        = Koala::Facebook::API.new(session[:access_token])
     @friends_info = get_objects(@friends, fields: [:id, :picture, :name]).to_json
     @friends_info.each do |friend|
       friend[:likes] = @graph.get_connections(friend[:id], "likes")
