@@ -173,8 +173,12 @@ body {}
 }
 
 .search { 
-	float: right; 
-	margin: -10px 60px 0 0;
+  width: 200px;
+  margin: auto;
+}
+
+.search-box {
+  width: 200px;
 }
 
 .friend-limit {
@@ -286,6 +290,7 @@ body {
 	padding: 20px 3px;
 	box-shadow: 0 0px 5px #999;
 	min-height: 500px;
+	width: 800px;
 }
 
 h1.center {
@@ -321,6 +326,8 @@ h1.center {
 }
 
 .overflow {
+  height: 600px;
+  overflow: scroll;
 }
 
 .friends-limit {
