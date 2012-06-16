@@ -35,27 +35,7 @@ class User
 
   def find_people_in_your_city(city, current_user_id)
     city = "New York, New York"
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    p city
-    all_people_in_city = User.safe_find_by( facebook_suggested_new_city: city)
-    p all_people_in_city
-    p all_people_in_city
-    p all_people_in_city
-    p all_people_in_city
-    p all_people_in_city.class
+    all_people_in_city = User.all( home_city: city )
     common_friends = []
     list_of_possible_friends = []
     all_people_in_city.each do |stranger|

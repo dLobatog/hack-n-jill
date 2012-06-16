@@ -43,27 +43,26 @@ html, body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -400px;
+  margin: 0 auto -500px;
   /* the bottom margin is the negative value of the footer's height */ }
-
-.explain, .push {
-  height: 300px;
-  /* .push must be the same height as .footer */ }
-
-.explain p {
-  font-size: 1em; }
 
 body {
   font-family: 'Lato', sans-serif;
   font-style: normal;
-  background: #61605b;
+  background: #050505 url(../images/custom/earth.jpg);
   color: black;
   font-size: 1.5em; }
 
 h1, h2 {
   /*font-family: 'LicketySplitMedium', sans-serif;*/
-  font-family: 'Lickety Split', sans-serif;
+  font-family: 'Lickety Split', sans-serif; }
+
+h1 {
   font-size: 3em;
+  text-shadow: 1px 1px 200px #e0ded1; }
+
+h2 {
+  font-size: 2.5em;
   text-shadow: 1px 1px 200px #e0ded1; }
 
 a {
@@ -72,19 +71,39 @@ a {
     color: #3dc2bd; }
 
 #header {
-  max-height: 315px;
-  padding: 110px 0;
+  height: 315px;
+  padding: 0px 0 30px;
   background: url(../images/custom/hdr2.png) top center repeat-x; }
   #header .tagline {
-    font: 1.5em "Lato", "helvetica", "arial", sans-serif; }
+    font: 1.5em "Lato", "helvetica", "arial", sans-serif;
+    position: relative;
+    top: 200px;
+    left: 30px;
+    padding: 100px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    /* For IE8 and earlier */ }
+  #header .signin {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background: #cf2025;
+    padding: 10px 20px;
+    box-shadow: -10px 10px black; }
 
-#lm {
-  font-size: 1.5em;
-  padding: 10px 0; }
+#logo {
+  background: url(../images/custom/andut.png) left top no-repeat;
+  min-height: 300px; }
+
+.blkwrap {
+  background: rgba(140, 139, 133, 0.7);
+  padding-bottom: 50px; }
 
 #test {
   background: #a8a69d;
-  text-align: left; }
+  text-align: left;
+  min-height: 1000px; }
 
 #footer {
   background: #cf2025; }
@@ -99,16 +118,82 @@ a {
 #mainpage {
   text-align: center; }
 
+#lm {
+  font-size: 1.5em;
+  padding: 10px 0; }
+
 .button#signup {
   background-color: #ffdd00; }
   .button#signup:hover {
     box-shadow: 0px 0px 115px #a8a69d;
     background-color: #3dc2bd; }
 
+.intro {
+  font-size: 1em; }
+
+.explain, .push {
+  height: 500px;
+  /* .push must be the same height as .footer */ }
+
+.explain .row {
+  padding-bottom: 50px; }
+.explain h1 {
+  text-shadow: 1px 1px 40px #a8a69d;
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  letter-spacing: -2px;
+  line-height: 1em; }
+  .explain h1.aa {
+    color: #3dc2bd; }
+  .explain h1.bb {
+    color: #b9e4d3; }
+  .explain h1.cc {
+    color: #e0ded1; }
+.explain p {
+  font-size: 1em; }
+
 #heightwrap {
   height: 100%;
-  padding: 20px 0; }
+  padding: 20px 0 100px; }
+
+.wrapper#vegas {
+  background: url(http://www.usanewyork.org/wp-content/uploads/2012/02/new-york-city-central-park.jpg) no-repeat center center fixed; }
 
 /* -----------------------------------------
-   Page Name 2
+   steptwo.html
+----------------------------------------- */
+#instruct p {
+  font-size: 1.2em; }
+
+#picker {
+  background: #e0ded1; }
+  #picker li {
+    background: #e0ded1;
+    float: left;
+    width: 22%;
+    margin: 5px;
+    padding: 10px;
+    min-height: 50px;
+    line-height: 1em;
+    font-size: 1em; }
+    #picker li:hover {
+      background: white; }
+    #picker li img {
+      float: left;
+      padding: 0px 6px 0px 0px; }
+
+.sobig {
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-size: 3em !important;
+  background: #ffdd00;
+  height: 50px;
+  padding: 10px;
+  border: none; }
+  .sobig:focus {
+    background: white;
+    box-shadow: 0px 0px 115px #a8a69d; }
+
+/* -----------------------------------------
+   
 ----------------------------------------- */

@@ -152,15 +152,16 @@ class MyApp < Sinatra::Application
     else
       redirect '/'
     end  
-    city                      = current_user.new_city unless params[:city].nil?
-    @list_of_possible_friends = current_user.find_people_in_your_city(city, current_user.uid)
+    city                      = current_user.new_city
+    friends = graph.get_connections('me', 'friends', fields: 'id')
+    friends = friends.collect { |friend| friend['id'] }
+    @friends_in_city = User.all( home_city: city, uid: friends )
     @app                      = graph.get_object(ENV["FACEBOOK_APP_ID"])
     haml :home
   end
   
   post '/save' do
     @friends = params[:friends]
-    @home_city = params[:home_city]
     @graph = Koala::Facebook::API.new(session[:access_token])
     @friends_info = @graph.get_objects(@friends, fields: 'id,picture,name,likes')
     @friends.each do |friend|
@@ -170,8 +171,6 @@ class MyApp < Sinatra::Application
         picture: friend['picture'], 
         city: @home_city
     end
-    
-    current_user.home_city = @home_city
     current_user.save
      
     redirect '/home'

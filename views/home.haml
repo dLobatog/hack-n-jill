@@ -1,6 +1,15 @@
 -# Show possible friends
 
-- @list_of_possible_friends.each do |friend| unless @list_of_possible_friends.empty?
-  = friend
-
+%ul
+  -@friends_in_city.each do |friend|
+    %li
+      %h3= friend['name']
+      %img{src: friend['picture']}
+      .friends
+        %ul
+        -friend.friends.each do |f|
+          %li
+            %h1= f['name']
+            %img{src: f['picture']}
+          
 
