@@ -1,9 +1,11 @@
+
 class Friend
-  include Mongoid::Document
-  field :name, type: String
-  field :picture, type: String
-  field :likes, type: Array
-  field :city, type: String
+  include MongoMapper::Document
+  key :name, String
+  key :picture, String
+  key :likes, Array
+  key :city, String
+  key :user_id, String
   
   belongs_to :user
 end

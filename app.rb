@@ -1,8 +1,11 @@
 require "sinatra"
-require 'koala'
+require 'rubygems'
+require 'koala'  
+require 'mongo_mapper'
 
 class MyApp < Sinatra::Application
-  enable :sessions
+  
+  enable :sessions, :logging
   set :raise_errors, false
   set :show_exceptions, false
 
@@ -13,7 +16,11 @@ class MyApp < Sinatra::Application
   # permissions your app needs.
   # See https://developers.facebook.com/docs/reference/api/permissions/
   # for a full list of permissions
-  FACEBOOK_SCOPE = 'user_likes,user_photos,friends_about_me,friends_likes'
+  FACEBOOK_SCOPE = 'user_likes,user_photos,friends_about_me,friends_likes,email'
+  
+  configure do
+    MongoMapper.database = 'hacknjill'
+  end
 
   unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
     abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
@@ -48,7 +55,12 @@ class MyApp < Sinatra::Application
     end
     
     def current_user
-      @current_user ||= User.find_by( uid: session[:uid] )
+      @current_user ||= User.safe_find_by( uid: session[:uid] )
+    end
+    
+    
+    def logger
+      request.logger
     end
 
   end
@@ -79,7 +91,7 @@ class MyApp < Sinatra::Application
   post "/" do
     redirect "/"
   end
-
+  
   # used to close the browser window opened to post to wall/send to friends
   get "/close" do
     "<body onload='window.close();'/>"
@@ -98,12 +110,8 @@ class MyApp < Sinatra::Application
   get '/auth/facebook/callback' do
   	session[:access_token] = authenticator.get_access_token(params[:code])
   	@graph  = Koala::Facebook::API.new(session[:access_token])
-  	@fb_info = @graph.get_object('me')
-  	@likes = @graph.get_connections('me', 'likes')
-  	@friends = @graph.get_connections('me', 'friends', fields: [:id, :picture, :name])
-  	return @friends.to_json
-  	
-  	@user = User.find_or_create_user(@fb_info, @likes)
+  	@fb_info = @graph.get_object('me', fields: "email,picture,id,name,location,hometown,likes,gender")
+  	@user = User.find_or_create_user(@fb_info)
   	
   	if @user.persisted?
   	  session[:uid] = @user.uid
@@ -121,14 +129,15 @@ class MyApp < Sinatra::Application
   get '/get_friends.json' do
     if current_user
       graph  = Koala::Facebook::API.new(session[:access_token])
-      friends = graph.get_connections('me', 'friends', fields: [:id, :picture, :name, :gender])
+      friends = graph.get_connections('me', 'friends', fields: "id,picture,name,gender")
       return friends.to_json
     else
-      redirect_to '/'
+      redirect '/'
     end
   end
   
   get '/settings' do
+    p session
     @graph  = Koala::Facebook::API.new(session[:access_token])
     @user = current_user
     @friends = @graph.get_connections('me', 'friends').to_json
@@ -153,7 +162,7 @@ class MyApp < Sinatra::Application
     current_user.home_city = @home_city
     current_user.save
      
-    redirect_to :home
+    redirect '/home'
   end
   
   get '/auth/failure' do

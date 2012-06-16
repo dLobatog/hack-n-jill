@@ -1,34 +1,36 @@
+
 class User
-  include Mongoid::Document
-  field :name, type: String
-  field :home_city, type: String
-  field :new_city, type: String
-  field :fb_suggested_hometown, type: String
-  field :fb_suggested_new_city, type: String
-  field :name, type: String
-  field :email, type: String
-  field :uid, type: String
+  include MongoMapper::Document
+  key :name, String
+  key :home_city, String
+  key :new_city, String
+  key :fb_suggested_hometown, String
+  key :email, String
+  key :uid,  String
+  key :friends, Array
   
-  has_many :friend
   
-  def self.find_or_create_user(info, likes)
-    if @user = User.safe_find_by(uid: info[:id])
+  many :friends, class_name: "Friend"
+  
+  def self.find_or_create_user(info)
+    if @user = User.safe_find_by( uid: info["id"] )
       @user
     else
-      @user = User.new name: info[:name],
-    	  uid: info[:id],
-    	  gender: info[:gender],
-    	  facebook_suggested_hometown: info[:hometown][:name],
-    	  facebook_suggested_new_city: info[:location][:name],
-    	  picture: info[:picture],
-    	  likes: @likes,
-    	  email: info[:email]
+      @user = User.new name: info["name"],
+    	  uid: info["id"],
+    	  gender: info["gender"],
+    	  facebook_suggested_hometown: info["hometown"]["name"],
+    	  facebook_suggested_new_city: info["location"]["name"],
+    	  picture: info["picture"],
+    	  likes: info['likes'],
+    	  email: info["email"]
   	end
+  	return @user
   end
   
   def self.safe_find_by(query)
     begin
-      User.find_by(query)
+      User.all(query)[0]
     rescue
       nil
     end
