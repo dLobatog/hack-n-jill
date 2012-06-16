@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %title
+      = @app['name']
+    %link(rel="stylesheet" href="stylesheets/foundation.css") 
+    %link(rel="stylesheet" href="stylesheets/users.css") 
+    %link(rel="stylesheet" href="stylesheets/jquery.vegas.css") 
+    %script{ :src => "/javascripts/jquery-1.7.1.min.js" } 
+    %script{ :src => "/javascripts/application.js" } 
+    %script{ :src => "/javascripts/friendpicker.js" } 
+    %script{ :src => "/javascripts/jquery.vegas.js" } 
+    %script{ :src => "/javascripts/foundation.js" } 
+    %script{ :src => "/javascripts/modernizr.foundation.js" } 
+    %link(rel="stylesheet" href="stylesheets/app.css") 
+    %script{ :src => "/javascripts/app.js" } 
+    
+  %body  
+    =yield
