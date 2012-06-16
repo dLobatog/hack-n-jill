@@ -1,43 +1,60 @@
 .wrapper
-  #header
+  .blkwrap
+    #header
+      .signin
+        returning?
+        %a{:href => "#"} sign in
+      .container
+        #logo.row
+          .twelve.columns
+            %a.tagline{:href => "../index.html"} andut
     .container
       .row
-        %div{ :class => "twelve columns" }
-          %h1 Hack N Jill
-          %p{ :class => "tagline" }
-            Cheryl Daniel Jesse 
-  .container
-    .row
-      %div{ :class => "twelve columns", :id => "mainpage" }
-        #heightwrap
-          %h1 
-            CURATE &amp; CONNECT YOUR FRIENDS
-          %br
-          .row
-            %div{ :class => "seven columns righta" }
-              %p
-                %a{ :class => "large button", :id => "signup", :href => "/auth/facebook" }
-                  %span{ :class => "fb_button_text" }
-                    Let's start this party
-            %div{ :class => "five columns lefta", :id => "lm" }
-              %a{ :href => "#explain" }
-                or learn more &raquo;
-      .push
-      %a{ :name => "explain" }
+        #mainpage.twelve.columns
+          #heightwrap
+            %h2 THE PEOPLE AND PLACES YOU REALLY WANT TO SEE.
+            %p.intro
+              Visiting new cities is awesomer if you know a local. We have the awesomest locals of all: cool new friends, curated by your cool
+              %em old
+              friends.
+            %br/
+            .row
+              .seven.columns.righta
+                %p
+                  %a#signup.large.button{:href => "/auth/facebook"} let's start this party
+              #lm.five.columns.lefta
+                %a{:href => "#explain"} or learn more »
+        / this closes heightwrap and sticky
+        %hr/
         .explain
-          %p 
-            In terry richardson viral dreamcatcher, ex trust fund marfa magna kogi scenester iphone exercitation lo-fi raw denim. Williamsburg reprehenderit deserunt irony vegan squid. Pitchfork etsy fap tempor occaecat kogi bespoke. Brunch lo-fi laboris, qui ea brooklyn photo booth. Brunch leggings wayfarers, sriracha assumenda semiotics eu dreamcatcher delectus sustainable odio. Art party nulla dolor echo park +1 id banh mi, fap selvage salvia cardigan umami pop-up incididunt. Retro swag officia 8-bit, laborum kale chips master cleanse mollit.
-      #footer
-        %div{ :class => "container righta" }
-          %p
-            %a{ :href => "http://hacknjill.com" }
-              hack n' jill app by three 
-              %a{ :href => "http://hackny.org/a/"}
-                2012 hackNY fellows &bull; devs Jesse Pollak and Daniel Lobato
-                &bull; design Cheryl Wu
-      
-      
-
-        
-
-
+          %a{:name => "explain"}  
+          .row
+            .four.columns
+              %h1.aa Your cool friends know where it's at.
+            .four.columns
+              %h1.bb (Awesome) locals know where it's at.
+            .four.columns
+              %h1.cc Your cool friends know locals who know where it's at.
+          .row
+            .six.columns
+              %h4 From New York to Los Angeles...
+              %p When you visit a new city, Andut gives you a list of all of the friends that your friends have selected as awesome people. Travel into a whole new world, not the abyss. (Or tourist trap, for that matter.)
+            .six.columns
+              %h4 and Los Angeles to New York.
+              %p
+                Be a good guest and return the favor— choose 5 of
+                %em your
+                coolest friends. When one of your other friends visits their city, your friends will be recommended automatically. BOOM.
+  #footer
+    .container.righta
+      %p
+        a
+        %a{:href => "http://hacknjill.com/"} hack n' jill app
+        by three
+        %a{:href => "http://hackny.org/a/"} 2012 hackNY fellows
+        \• devs
+        %a{:href => "https://twitter.com/#!/jessepollak"} Jesse Pollak
+        and
+        %a{:href => "https://twitter.com/#!/elobatoss"} Daniel Lobato
+        \• design
+        %a{:href => "https://twitter.com/#!/grungerabbit"} Cheryl Wu

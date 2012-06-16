@@ -1,0 +1,333 @@
+/* Foundation v2.2.1 http://foundation.zurb.com */
+/* Artfully masterminded by ZURB  */
+
+/* FOR HACKNJILL BY CHERYL WU YEAH BR000 */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Page Name 1
+:: Page Name 2
+*/
+
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+
+/*@font-face {
+    font-family: 'LicketySplitMedium';
+    src: url('http://blogservices.net/hackny/hnj/webfontkit/licketysplit-webfont.eot');
+    src: url('http://blogservices.net/hackny/hnj/webfontkit/licketysplit-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://blogservices.net/hackny/hnj/webfontkit/licketysplit-webfont.woff') format('woff'),
+         url('http://blogservices.net/hackny/hnj/webfontkit/licketysplit-webfont.ttf') format('truetype'),
+         url('http://blogservices.net/hackny/hnj/webfontkit/licketysplit-webfont.svg#LicketySplitMedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}*/
+
+$borders: 1px solid;      
+
+// main colors
+$dkgrey: #61605b;
+$adjust: #050505;
+$dkrgb: rgba(140, 139, 133, .70);
+$mdgrey: #a8a69d;
+$ltgrey: #e0ded1;
+$white: #fff;
+$butter: #ffdd00;
+$teal: #3DC2BD;
+$seaf: #B9E4D3;
+$bred: #CF2025;
+
+$paper: url(../images/custom/earth.jpg);
+
+
+
+// font sizes   
+$fontXXL: 5em;
+$fontXL: 3em;
+$fontL: 2.5em;  
+$fontML: 2em; 
+$fontMM: 1.5em;
+$fontMS: 1.2em; 
+$fontR: 1em;
+$fontRS: .85em;  
+$fontS: .75em;  
+$fontXS: .55em;
+
+$lato: "Lato", "helvetica", "arial", sans-serif;
+
+
+@mixin no-sides {
+	border-left: none;
+	border-right: none;
+}    
+@mixin lato {     
+	font-family: 'Lato', sans-serif;
+	font-style: normal;
+}   
+@mixin ls {     
+	/*font-family: 'LicketySplitMedium', sans-serif;*/
+	font-family: 'Lickety Split', sans-serif;
+}   
+
+/* STICKY FOOTER
+by Ryan Fait
+http://ryanfait.com/
+thxbr0
+*/
+
+* {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+}
+.righta {
+	text-align: right;
+}
+.lefta {
+	text-align: left;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -500px; /* the bottom margin is the negative value of the footer's height */
+}
+
+
+
+
+body {
+	@include lato;
+	background: $adjust $paper;
+	color: black;
+	font-size: $fontMM;
+}
+
+h1, h2 {
+	@include ls;
+}
+h1 {
+	font-size: $fontXL;
+	text-shadow: 1px 1px 200px $ltgrey;
+}
+h2 {
+	font-size: $fontL;
+	text-shadow: 1px 1px 200px $ltgrey;
+}
+a { 
+	color: $seaf;
+	&:hover {
+		color: $teal;
+	}
+
+}
+
+#header {
+	height: 315px;
+	padding: 0px 0 30px;
+	background: url(../images/custom/hdr2.png) top center repeat-x;
+	.tagline {
+		font: $fontMM $lato;
+		position: relative;
+		top: 200px;
+		left: 30px;
+		padding: 100px;
+		opacity:0;
+		filter:alpha(opacity=0); /* For IE8 and earlier */
+
+	}	
+	.signin {
+		display: none;
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		background: $bred;
+		padding: 10px 20px;
+		box-shadow: -10px 10px black;
+	}
+}
+#logo {
+	background: url(../images/custom/andut.png) left top no-repeat;
+	min-height: 300px;
+}
+.blkwrap {
+	background: $dkrgb;
+	padding-bottom: 50px;
+}
+
+#test {
+	background: $mdgrey;
+	text-align: left;
+	min-height: 1000px;
+}
+#footer {
+	background: $bred;
+	a {
+		color: $mdgrey;
+		&:hover {
+			color: $ltgrey;
+		}
+	}
+}
+
+
+/* -----------------------------------------
+   #mainpage
+----------------------------------------- */
+
+#mainpage {
+	text-align: center;
+}
+#lm {
+	font-size: $fontMM;
+	padding: 10px 0;
+}
+.button#signup {
+	background-color: $butter;
+	&:hover {
+		box-shadow: 0px 0px 115px $mdgrey;
+		background-color: $teal;
+	}
+}
+.intro {
+	font-size: $fontR;
+}
+
+.explain, .push {
+	height: 500px; /* .push must be the same height as .footer */
+}
+.explain {
+	.row {
+		padding-bottom: 50px;
+	}
+	h1 {
+		text-shadow: 1px 1px 40px $mdgrey;
+		@include lato;
+		letter-spacing: -2px;
+		line-height: $fontR;
+		&.aa {
+			color: $teal;
+		}
+		&.bb {
+			color: $seaf;
+		}
+		&.cc {
+			color: $ltgrey;
+		}
+	}
+	p {
+	font-size: $fontR;
+	}
+}
+
+
+#heightwrap {
+	height: 100%;
+	padding: 20px 0 100px;
+}
+.wrapper#vegas {
+	background: url(http://www.usanewyork.org/wp-content/uploads/2012/02/new-york-city-central-park.jpg) no-repeat center center fixed;
+}
+
+
+/* -----------------------------------------
+   steptwo.html
+----------------------------------------- */
+#instruct {
+		p {
+			font-size: $fontMS;
+		}
+	
+}
+#picker {
+	background: $ltgrey;
+	li {
+		background: $ltgrey;
+		float: left;
+		width: 22%;
+		margin: 5px;
+		padding: 10px;
+		min-height: 50px;
+		line-height: $fontR;
+		font-size: $fontR;
+		&:hover {
+			background: white;
+		}
+		img {
+			float: left;
+			padding: 0px 6px 0px 0px;
+		}
+	}
+
+}
+
+
+
+.xlarge {
+	@include lato;
+	font-size: $fontXL !important;
+	background: $butter;
+	height: 50px;
+	padding: 10px;
+	border: none;
+	&:focus {
+		background: $white;
+		box-shadow: 0px 0px 115px $mdgrey;
+	}
+}
+
+
+/* -----------------------------------------
+   
+----------------------------------------- */
+
+#chosen {
+	background: $mdgrey;
+	p {
+		font-size: $fontMS;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		@include lato;
+	}
+}
+
+#chosen {
+
+	ul {
+		padding: 10px 0;
+	}
+	li {
+		background: $ltgrey;
+		float: left;
+		width: 500px;
+		margin: 5px;
+		padding: 10px;
+		min-height: 50px;
+		line-height: $fontR;
+		font-size: $fontR;
+		margin-left: 15px;
+		&.yourfriend {
+			background: $teal;
+		}
+		&:hover {
+			background: white;
+		}
+		img {
+			float: left;
+			padding: 0px 6px 0px 0px;
+		}
+		h1, h2, h3, h4, h5, h6 {
+			@include lato;
+			float: right;
+		}
+	}
+}
+#finished {
+	background: $ltgrey;
+}

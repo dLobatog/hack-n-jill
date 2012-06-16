@@ -1,15 +1,48 @@
--# Show possible friends
-
-%ul
-  -@friends_in_city.each do |friend|
-    %li
-      %h3= friend['name']
-      %img{src: friend['picture']}
-      .friends
-        %ul
-        -friend.friends.each do |f|
-          %li
-            %h1= f['name']
-            %img{src: f['picture']}
-          
-
+.wrapper
+  .blkwrap
+    #header
+      .signin
+        returning?
+        %a{:href => "#"} sign in
+      .container
+        #logo.row
+          .twelve.columns
+            %a.tagline{:href => "../index.html"} andut
+    .container
+      .row
+        .twelve.columns
+          %h1 2. ...and I'll help you.
+          %br/
+          #chosen.row
+            .five.columns
+              .container
+                %h2 New York City
+                %p Selections from your friends:
+            #finished.seven.columns
+              %ul
+                -@friends_in_city.each do |friend|
+                  %li.yourfriend
+                    %h3= friend['name']
+                    %img{src: friend['picture']}
+                    .friends
+                      %ul
+                        -friend.friends.each do |f|
+                          %li
+                            %h1= f['name']
+                            %img{src: f['picture']}
+            .five.columns
+            .two.columns
+          .row
+    #footer
+      .container.righta
+        %p
+          a
+          %a{:href => "http://hacknjill.com/"} hack n' jill app
+          by three
+          %a{:href => "http://hackny.org/a/"} 2012 hackNY fellows
+          \• devs
+          %a{:href => "https://twitter.com/#!/jessepollak"} Jesse Pollak
+          and
+          %a{:href => "https://twitter.com/#!/elobatoss"} Daniel Lobato
+          \• design
+          %a{:href => "https://twitter.com/#!/grungerabbit"} Cheryl Wu
