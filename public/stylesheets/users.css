@@ -99,7 +99,7 @@ body {}
 }
 
 .network li a:hover {
-  background: #f6f6f6;
+  background: #ffdd00;
   color: #0069D6;
   text-decoration: none;
 }
@@ -138,7 +138,7 @@ body {}
 }
 
 .friends-list li:hover {
-  background: #f0f0f0;
+  background: #ffdd00;
 }
 
 .friends-list li img {
@@ -193,8 +193,9 @@ body {}
 
 .add-to-queue {
   color: #fff;
-  height: 180px;
+  height: 80px;
   display: none;
+  padding: 50px 0;
 }
 
 .add-to-queue .email, .add-to-queue .phone {
@@ -205,18 +206,13 @@ body {}
   color: #777;
 }
 
-.add-to-queue h2 { }
+.add-to-queue h2 { 
+  font: 2em "Lato";
+  }
 
-.add-to-queue.female {
-  background: rgb(255, 153, 255);
-  background: rgba(255, 230, 255, 0.9);
+.add-to-queue.female, .add-to-queue.male {
+  background: rgba(140, 139, 133, 0.7)
 }
-
-.add-to-queue.male {
-  background: rgb(136, 187, 221);
-  background: rgba(210, 230, 255, 0.9);
-}
-
 .add-to-queue .image {
   float: left;
   margin: 12px;
