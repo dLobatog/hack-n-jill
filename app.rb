@@ -8,6 +8,7 @@ class MyApp < Sinatra::Application
   enable :sessions, :logging
   set :raise_errors, false
   set :show_exceptions, false
+  set :environment, :development
 
   # Scope defines what permissions that we are asking the user to grant.
   # In this example, we are asking for the ability to publish stories
@@ -19,7 +20,8 @@ class MyApp < Sinatra::Application
   FACEBOOK_SCOPE = 'user_likes,user_photos,friends_about_me,friends_likes,email'
   
   configure do
-    MongoMapper.database = 'hacknjill'
+    config = File.open( 'config/mongo.yml' ) { |yf| YAML::load( yf ) }
+    MongoMapper.setup(config, "development")
   end
 
   unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
@@ -78,13 +80,7 @@ class MyApp < Sinatra::Application
     # Get public details of current application
     @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
 
-    if session[:access_token]
-      @user    = @graph.get_object("me")
-      @friends = @graph.get_connections('me', 'friends')
-      @photos  = @graph.get_connections('me', 'photos')
-      @likes   = @graph.get_connections('me', 'likes').first(4)
-    end
-    erb :index
+    haml :index
   end
 
   # used by Canvas apps - redirect the POST to be a regular GET
@@ -136,15 +132,26 @@ class MyApp < Sinatra::Application
     end
   end
   
-  get '/settings' do
+  get '/query.json' do
     p session
+    city = params[:city]
+    graph  = Koala::Facebook::API.new(session[:access_token])
+    ids = graph.get_connections('me', 'friends', fields: 'id')
+    ids = ids.collect {|id| id['id'] }
+    return ids.to_json
+  end
+  
+  get '/settings' do
     @graph  = Koala::Facebook::API.new(session[:access_token])
+    @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
     @user = current_user
     @friends = @graph.get_connections('me', 'friends').to_json
     @hometown = current_user.fb_suggested_hometown
+    haml :settings
   end
   
   get '/home' do
+    @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
     haml :home
   end
   
