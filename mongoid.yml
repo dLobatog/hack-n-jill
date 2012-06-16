@@ -1,6 +1,6 @@
 development:
   sessions:
     default:
-      database: mongoid
+      database: hacknjill
       hosts:
         - localhost:27017

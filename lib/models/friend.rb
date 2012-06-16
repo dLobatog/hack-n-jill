@@ -5,5 +5,5 @@ class Friend
   field :likes, type: Array
   field :city, type: String
   
-  belongs_to :user    
+  belongs_to :user
 end

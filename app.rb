@@ -13,7 +13,7 @@ class MyApp < Sinatra::Application
   # permissions your app needs.
   # See https://developers.facebook.com/docs/reference/api/permissions/
   # for a full list of permissions
-  FACEBOOK_SCOPE = 'user_likes,user_photos,user_photo_video_tags'
+  FACEBOOK_SCOPE = 'user_likes,user_photos,friends_about_me,friends_likes'
 
   unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
     abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
@@ -45,6 +45,10 @@ class MyApp < Sinatra::Application
 
     def authenticator
       @authenticator ||= Koala::Facebook::OAuth.new(ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_SECRET"], url("/auth/facebook/callback"))
+    end
+    
+    def current_user
+      @current_user ||= User.find_by( uid: session[:uid] )
     end
 
   end
@@ -93,7 +97,67 @@ class MyApp < Sinatra::Application
 
   get '/auth/facebook/callback' do
   	session[:access_token] = authenticator.get_access_token(params[:code])
-  	redirect '/'
+  	@graph  = Koala::Facebook::API.new(session[:access_token])
+  	@fb_info = @graph.get_object('me')
+  	@likes = @graph.get_connections('me', 'likes')
+  	@friends = @graph.get_connections('me', 'friends', fields: [:id, :picture, :name])
+  	return @friends.to_json
+  	
+  	@user = User.find_or_create_user(@fb_info, @likes)
+  	
+  	if @user.persisted?
+  	  session[:uid] = @user.uid
+  	  redirect '/home'
+  	else
+    	if @user.save
+    	  session[:uid] = @user.uid
+    	  redirect '/settings'
+  	  else
+  	    redirect '/auth/failure'
+      end
+    end
+  end
+  
+  get '/get_friends.json' do
+    if current_user
+      graph  = Koala::Facebook::API.new(session[:access_token])
+      friends = graph.get_connections('me', 'friends', fields: [:id, :picture, :name, :gender])
+      return friends.to_json
+    else
+      redirect_to '/'
+    end
+  end
+  
+  get '/settings' do
+    @graph  = Koala::Facebook::API.new(session[:access_token])
+    @user = current_user
+    @friends = @graph.get_connections('me', 'friends').to_json
+    @hometown = current_user.fb_suggested_hometown
+  end
+  
+  get '/home' do
+    haml :home
+  end
+  
+  post '/save' do
+    @friends = params[:friends]
+    @home_city = params[:home_city]
+    @graph = Koala::Facebook::API.new(session[:access_token])
+    @friends_info = get_objects(@friends, fields: [:id, :picture, :name]).to_json
+    @friends_info.each do |friend|
+      friend[:likes] = @graph.get_connections(friend[:id], "likes")
+      db_friend = current_user.friends.build likes: friend[:likes], name: friend[:name], picture: friend[:picture], city: @home_city
+      db_friend.save
+    end
+    
+    current_user.home_city = @home_city
+    current_user.save
+     
+    redirect_to :home
+  end
+  
+  get '/auth/failure' do
+    "Your Facebook authentication failed, please go to the <a href='/'>home page</a> and try again!"
   end
 end
 

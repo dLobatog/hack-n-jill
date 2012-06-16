@@ -1,0 +1,79 @@
+- content_for(:head) do
+  = stylesheet_link_tag    "users"
+  = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+  = javascript_include_tag "friendpicker"
+  %link{:rel => "shortcut icon", :href => "/favicon.ico"}
+
+.wrap
+  = render 'layouts/header'
+  .container.main
+    .overflow
+      %h1.center Choose the friends you're interested in
+      #friend-picker
+        .filter
+          %ul.gender
+            %li.male
+              ♂
+            %li.female
+              ♀
+          %ul.network
+          .search.input
+            -if @like_count > 0
+              .alert-message.block-message.info
+                %strong=pluralize(@like_count, "person")
+                -if @like_count > 1
+                  are
+                -else
+                  is
+                interested in you!
+              .friend-limit
+                You can add 
+                =@can_add
+                more friends.
+            -else
+              .friend-limit.fpadded
+                You can add 
+                =@can_add
+                more friends.
+            %input.search-box.xlarge{:placeholder => "Search", :type => "text"}/
+          .clear-both 
+        .clear-both
+        .friends
+          .progress-bar-container
+            %p.progress-message
+            .progress-bar.blue
+              %span
+          %ul.friends-list
+          .friends-limit you may only add 15 users
+          .clear-both 
+.queue
+  .picked
+    %form{ :action => "/matches", :method => "post" }
+      .container
+        %input.continue{:type => "submit", :value => "Confirm Friends", :class => "btn primary" }
+  .add-to-queue
+    .container
+      %div.image
+      %h2
+        Let us tell
+        %span.name
+        that someone is interested in
+        %span.gender
+        %small optional
+      %input.xlarge{:placeholder => "email address", :type => "text", :name => "email", :class => "email" }/
+      %button.btn.primary.add-with-email Send an Email
+      %small or
+      %input.xlarge{:placeholder => "(###) ###-####", :type => "text", :name => "phone", :class => "phone" }/
+      %button.btn.primary.add-with-phone Send a Text
+      %small or
+      %button.btn.add-without-email Add without contacting
+      %h3.info
+        We will send your friend an email or a text telling
+        %span.gender
+        that someone is interested in
+        %span.gender
+        on LikeSecret. This process is anonymous and will not reveal your identity, just prompt
+        %span.gender
+        to use LikeSecret.
+        %a.cancel{:href => "#"}
+          Cancel
