@@ -182,10 +182,10 @@ a {
       float: left;
       padding: 0px 6px 0px 0px; }
 
-.xlarge {
+.xlarge, .sobig {
   font-family: 'Lato', sans-serif;
   font-style: normal;
-  font-size: 3em !important;
+  font-size: 1em !important;
   background: #ffdd00;
   height: 50px;
   padding: 10px;

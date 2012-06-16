@@ -8,26 +8,48 @@
         #logo.row
           .twelve.columns
             %a.tagline{:href => "../index.html"} andut
-.wrap
-  .container.main
-    .overflow
-      %h1.center What friends do you want your other friends to meet?
-      #friend-picker
-        .search.input
-          %input.search-box.xlarge{:placeholder => "Search", :type => "text"}/
-        .clear-both
-          %ul.friends-list
-          .clear-both 
-.queue
-  .picked
-    %form{ :action => "/save", :method => "post" }
       .container
-        %input.continue{:type => "submit", :value => "Confirm Friends", :class => "btn primary" }
-  .add-to-queue
-    .container
-      %div.image
-      %h2
-        I think this person would be a great new friend in a big bad city!
-      %button.btn.add-without-email Yes!
-      %a.cancel{:href => "#"}
-        Cancel
+        .row
+          .twelve.columns
+          %h1 You help me...
+          
+          .row#instruct
+            .five.columns
+              %h3 What friends do you want your other friends to meet?
+              %p Select 5 friends who really know their city and are genuinely awesome.
+            .five.columns
+              .search.input
+                %input.search-box.xlarge{:placeholder => "Search", :type => "text"}/
+    .wrap
+      .container.main
+        .overflow
+          #friend-picker
+            .clear-both
+              %ul.friends-list
+              .clear-both 
+    .queue
+      .picked
+        %form{ :action => "/save", :method => "post" }
+          .container
+            %input.continue{:type => "submit", :value => "Confirm Friends", :class => "btn primary" }
+      .add-to-queue
+        .container
+          %div.image
+          %h2
+            I think this person would be a great new friend in a big bad city!
+          %button.btn.add-without-email Yes!
+          %a.cancel{:href => "#"}
+            Cancel
+  #footer
+    .container.righta
+      %p
+        a
+        %a{:href => "http://hacknjill.com/"} hack n' jill app
+        by three
+        %a{:href => "http://hackny.org/a/"} 2012 hackNY fellows
+        \• devs
+        %a{:href => "https://twitter.com/#!/jessepollak"} Jesse Pollak
+        and
+        %a{:href => "https://twitter.com/#!/elobatoss"} Daniel Lobato
+        \• design
+        %a{:href => "https://twitter.com/#!/grungerabbit"} Cheryl Wu
