@@ -24,12 +24,12 @@
                   %li.yourfriend
                     %h3= friend['name']
                     %img{src: friend['picture']}
-                    .friends
-                      %ul
-                        -friend.friends.each do |f|
-                          %li
-                            %h1= f['name']
-                            %img{src: f['picture']}
+                  .friends
+                    %ul
+                      -friend.friends.each do |f|
+                        %li
+                          %h1= f['name']
+                          %img{src: f['picture']}
             .five.columns
             .two.columns
           .row
