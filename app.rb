@@ -21,7 +21,7 @@ class MyApp < Sinatra::Application
   
   configure do
     config = File.open( 'config/mongo.yml' ) { |yf| YAML::load( yf ) }
-    MongoMapper.setup(config, "development")
+    MongoMapper.setup(config, "production")
   end
 
   before do

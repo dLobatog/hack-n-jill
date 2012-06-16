@@ -12,7 +12,4 @@ test:
 
 # set these environment variables on your prod server
 production:
-  <<: *defaults
-  database: my_app
-  username: <%= ENV['MONGO_USERNAME'] %>
-  password: <%= ENV['MONGO_PASSWORD'] %>
+  uri: mongodb://root:admin@flame.mongohq.com:27037/hacknjill
