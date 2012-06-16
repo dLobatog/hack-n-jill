@@ -146,7 +146,7 @@ class MyApp < Sinatra::Application
     @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
     @user = current_user
     @friends = @graph.get_connections('me', 'friends').to_json
-    @hometown = current_user.fb_suggested_hometown
+    @home_city = current_user.home_city
     haml :settings
   end
   

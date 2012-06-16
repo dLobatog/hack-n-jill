@@ -4,7 +4,6 @@ class User
   key :name, String
   key :home_city, String
   key :new_city, String
-  key :fb_suggested_hometown, String
   key :email, String
   key :uid,  String
   key :embedded_friends, Array
@@ -18,8 +17,8 @@ class User
       @user = User.new name: info["name"],
     	  uid: info["id"],
     	  gender: info["gender"],
-    	  facebook_suggested_hometown: info["hometown"]["name"],
-    	  facebook_suggested_new_city: info["location"]["name"],
+    	  home_city: info["hometown"]["name"],
+    	  new_city: info["location"]["name"],
     	  picture: info["picture"],
     	  likes: info['likes'],
     	  email: info["email"]
