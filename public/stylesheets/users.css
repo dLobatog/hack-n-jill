@@ -166,12 +166,16 @@ body {}
 }
 
 .search { 
-  width: 200px;
-  margin: auto;
 }
 
 .search-box {
-  width: 200px;
+  width: 400px;
+  
+
+  background: #ffdd00;
+  height: 50px;
+  padding: 10px;
+  border: none;
 }
 
 .friend-limit {
@@ -179,7 +183,9 @@ body {}
   color: #AAA;
 }
 
-.input .xlarge { font-size: 16px; height: 26px; }
+.input .xlarge { font-family: 'Lato', sans-serif;
+font-style: normal;
+font-size: 3em !important; }
 
 .queue {
   position: fixed;
