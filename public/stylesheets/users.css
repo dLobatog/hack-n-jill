@@ -63,8 +63,8 @@ body {}
 
 .gender li.selected { opacity: 1; }
 
-.gender li.female { background: #f9f; }
-.gender li.male { background: #8bd; }
+.gender li.female { background: #ffdd00; }
+.gender li.male { background: #ffdd00; }
 
 .network {
   margin: 0 0 0 4px;
@@ -89,7 +89,7 @@ body {}
 }
 
 .network li.selected {
-  background: #eee;
+  background: #ffdd00;
 }
 
 .network li a {
@@ -156,7 +156,7 @@ body {}
 }
 
 .friends-list li.selected {
-  background: #cdf;
+  background: #ffdd00;
 }
 
 .friends-loading {
@@ -278,8 +278,7 @@ body {
 }
 
 .main {
-  background: #fff;
-  border: solid 1px #999;
+  background: #e0ded1;
   border-radius: 4px;
   margin: 10px auto;
   padding: 20px 3px;
@@ -323,6 +322,7 @@ h1.center {
 .overflow {
   height: 600px;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .friends-limit {
@@ -424,7 +424,11 @@ h1.center {
 .one-match .name-link .btn {
   margin: 20px 50px 0 0;
 }
-
+.btn {
+  background-color: #ffdd00; }
+  .btn:hover {
+    box-shadow: 0px 0px 115px #a8a69d;
+    background-color: #3dc2bd; }
 .many-match {
   display: block;
   width: 250px;
@@ -711,5 +715,8 @@ h1.center {
 .settings .email-pref label {
   width: 330px;
   margin-right: 40px;
+}
+.cancel {
+  margin-left: 20px;
 }
 */
