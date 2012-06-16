@@ -6,10 +6,9 @@ class User
   key :fb_suggested_hometown, String
   key :email, String
   key :uid,  String
-  key :friends, Array
-  
-  
-  many :friends, class_name: "Friend"
+  key :embedded_friends, Array
+
+  many :friends, in: :embedded_friends
   
   def self.find_or_create_user(info)
     if @user = User.safe_find_by( uid: info["id"] )

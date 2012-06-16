@@ -1,45 +1,23 @@
-- if @user
-  %p{ :id => "picture", :style => "background-image: url(https://graph.facebook.com/#{@user['id']}/picture?type=normal)" }
-    %h1 
-      = "Welcome, #{@user['name']}!"
-    .cities_list
-      %form{ :action => "", :method => "post"}
-        %select
-          %option New York City
-          %option Los Angeles
-          %option Chicago
-          %option Austin
-          %option Seattle
-        %input{ :type => "submit", :value => "GO", :class => "button" }
-
-    .list
-      %h3 Choose 3 folks.
+.wrap
+  .container.main
+    .overflow
+      %h1.center What friends do you want your other friends to meet?
       #friend-picker
-        .filter
-          %ul.gender
-            %li.male
-              ♂
-            %li.female
-              ♀
-          %ul.network
-          .search.input
-            .friend-limit.fpadded
-              You can add 
-              more friends.
-            %input.search-box.xlarge{:placeholder => "Search", :type => "text"}/
-          .clear-both 
+        .search.input
+          %input.search-box.xlarge{:placeholder => "Search", :type => "text"}/
         .clear-both
-        .friends
-          .progress-bar-container
-            %p.progress-message
-            .progress-bar.blue
-              %span
           %ul.friends-list
-          .friends-limit you may only add 3 users
-          .clear-both        
-
-- else
-  You shouldn't be here!
-  Go back home.
-
-                
+          .clear-both 
+.queue
+  .picked
+    %form{ :action => "/save", :method => "post" }
+      .container
+        %input.continue{:type => "submit", :value => "Confirm Friends", :class => "btn primary" }
+  .add-to-queue
+    .container
+      %div.image
+      %h2
+        I think this person would be a great new friend in a big bad city!
+      %button.btn.add-without-email Yes!
+      %a.cancel{:href => "#"}
+        Cancel

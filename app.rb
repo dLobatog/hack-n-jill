@@ -159,14 +159,16 @@ class MyApp < Sinatra::Application
   end
   
   post '/save' do
-    @friends      = params[:friends]
-    @home_city    = params[:home_city]
-    @graph        = Koala::Facebook::API.new(session[:access_token])
-    @friends_info = get_objects(@friends, fields: [:id, :picture, :name]).to_json
-    @friends_info.each do |friend|
-      friend[:likes] = @graph.get_connections(friend[:id], "likes")
-      db_friend = current_user.friends.build likes: friend[:likes], name: friend[:name], picture: friend[:picture], city: @home_city
-      db_friend.save
+    @friends = params[:friends]
+    @home_city = params[:home_city]
+    @graph = Koala::Facebook::API.new(session[:access_token])
+    @friends_info = @graph.get_objects(@friends, fields: 'id,picture,name,likes')
+    @friends.each do |friend|
+      friend = @friends_info[friend]
+      db_friend = current_user.friends.create likes: friend['likes']['data'], 
+        name: friend['name'], 
+        picture: friend['picture'], 
+        city: @home_city
     end
     
     current_user.home_city = @home_city
